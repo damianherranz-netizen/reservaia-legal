@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¡Bienvenido a ReservaIA!</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f0f11;
+    --surface: #1a1a1f;
+    --surface2: #22222a;
+    --border: rgba(255,255,255,0.08);
+    --text: #f0ede8;
+    --muted: #8a8890;
+    --accent: #c9a96e;
+    --green: #4caf82;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    max-width: 520px;
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Logo */
+  .logo-area { margin-bottom: 1.5rem; }
+  .logo-text {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .logo-text .reserv { color: var(--text); }
+  .logo-text .ia { color: var(--accent); }
+  .logo-sub {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* Hero */
+  .hero-emoji { font-size: 3rem; margin-bottom: 1rem; }
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .sub {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Badge restaurante */
+  .badge-restaurante {
+    background: rgba(201,169,110,0.08);
+    border: 1px solid rgba(201,169,110,0.2);
+    border-radius: 10px;
+    padding: 10px 16px;
+    margin-bottom: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .badge-restaurante strong { color: var(--text); display: block; font-size: 1rem; margin-bottom: 2px; }
+
+  /* Steps */
+  .steps { text-align: left; margin-bottom: 1.5rem; }
+  .step {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .step:last-child { border-bottom: none; }
+  .step-icon {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+  .step-icon.done {
+    background: rgba(76,175,130,0.15);
+    color: var(--green);
+    border: 1px solid rgba(76,175,130,0.3);
+  }
+  .step-icon.pending {
+    background: rgba(201,169,110,0.1);
+    color: var(--accent);
+    border: 1px solid rgba(201,169,110,0.25);
+  }
+  .step-text { flex: 1; }
+  .step-text strong {
+    color: var(--text);
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 3px;
+  }
+  .step-text span {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ID restaurante */
+  .id-box {
+    background: var(--surface2);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-family: monospace;
+    font-size: 0.78rem;
+    color: var(--accent);
+    margin-top: 6px;
+    word-break: break-all;
+  }
+
+  /* CTA */
+  .btn-calendar {
+    display: block;
+    background: var(--accent);
+    color: #1a1408;
+    border: none;
+    border-radius: 10px;
+    padding: 14px 24px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    margin-bottom: 1rem;
+    transition: opacity 0.2s;
+    font-family: inherit;
+  }
+  .btn-calendar:hover { opacity: 0.88; }
+
+  .nota {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .nota a { color: var(--accent); text-decoration: none; }
+
+  /* By Zevora */
+  .by-zevora {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+  .by-zevora span { color: var(--text); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- Logo -->
+  <div class="logo-area">
+    <div class="logo-text">
+      <span class="reserv">Reserv</span><span class="ia">IA</span>
+    </div>
+    <div class="logo-sub">Sistema de reservas inteligente</div>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero-emoji">🎉</div>
+  <h1>¡Bienvenido a ReservaIA!</h1>
+  <p class="sub">Tu suscripción está activa. Sigue los pasos de abajo para empezar a recibir reservas en minutos.</p>
+
+  <!-- Badge nombre restaurante -->
+  <div class="badge-restaurante" id="badge-restaurante">
+    <strong id="nombre-restaurante">Tu restaurante</strong>
+    está registrado y activo en el sistema
+  </div>
+
+  <!-- Steps -->
+  <div class="steps">
+    <div class="step">
+      <div class="step-icon done">✓</div>
+      <div class="step-text">
+        <strong>Cuenta creada y suscripción activa</strong>
+        <span>Tu restaurante está registrado en ReservaIA. Recibirás un email de confirmación.</span>
+        <div class="id-box" id="id-restaurante">cargando...</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-icon pending">2</div>
+      <div class="step-text">
+        <strong>Conecta tu Google Calendar</strong>
+        <span>Las reservas aparecerán automáticamente en tu calendario. Haz clic en el botón de abajo e inicia sesión con el Gmail del restaurante.</span>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-icon pending">3</div>
+      <div class="step-text">
+        <strong>Activa tu canal de WhatsApp</strong>
+        <span>Nuestro equipo te contactará en las próximas horas para configurar el número de WhatsApp Business del restaurante.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Calendar -->
+  <a href="#" class="btn-calendar" id="btn-calendar">
+    📅 Conectar Google Calendar ahora
+  </a>
+
+  <p class="nota">
+    ¿Dudas? Escríbenos a <a href="mailto:hola@reservaia.es">hola@reservaia.es</a><br>
+    o responde al email de bienvenida que acabas de recibir.
+  </p>
+
+  <div class="by-zevora">Desarrollado por <span>ZEVORA</span> · AI Automation Systems</div>
+
+</div>
+
+<script>
+  const SUPABASE_URL = 'https://msspbahutwrgajjsrwtj.supabase.co';
+
+  // Leer restaurant_id de la URL
+  const params = new URLSearchParams(window.location.search);
+  const restaurantId = params.get('restaurant_id');
+
+  if (restaurantId) {
+    document.getElementById('id-restaurante').textContent = restaurantId;
+
+    // Construir URL de Calendar
+    const urlCalendar = `${SUPABASE_URL}/functions/v1/oauth-google?restaurant_id=${encodeURIComponent(restaurantId)}`;
+    document.getElementById('btn-calendar').href = urlCalendar;
+
+    // Cargar nombre del restaurante desde Supabase
+    fetch(`${SUPABASE_URL}/rest/v1/restaurantes?id=eq.${encodeURIComponent(restaurantId)}&select=nombre`, {
+      headers: {
+        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1zc3BiYWh1dHdyZ2FqanNyd3RqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0ODAzODYsImV4cCI6MjA4OTA1NjM4Nn0.ILW9n5wF3zIL_e4WfYqIuZ0nF8XjVQhu-h6Xt9lE0X8',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1zc3BiYWh1dHdyZ2FqanNyd3RqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0ODAzODYsImV4cCI6MjA4OTA1NjM4Nn0.ILW9n5wF3zIL_e4WfYqIuZ0nF8XjVQhu-h6Xt9lE0X8'
+      }
+    })
+    .then(r => r.json())
+    .then(data => {
+      if (data?.[0]?.nombre) {
+        document.getElementById('nombre-restaurante').textContent = data[0].nombre;
+      }
+    })
+    .catch(() => {});
+  } else {
+    document.getElementById('id-restaurante').textContent = 'No disponible';
+    document.getElementById('btn-calendar').style.opacity = '0.4';
+    document.getElementById('btn-calendar').style.pointerEvents = 'none';
+  }
+</script>
+
+</body>
+</html>
