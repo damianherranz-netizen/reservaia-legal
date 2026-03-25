@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendar conectado — ReservaIA</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #0f0f11; color: #f0ede8;
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    padding: 2rem;
+  }
+  .card {
+    background: #1a1a1f; border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px; padding: 2.5rem 2rem;
+    max-width: 480px; width: 100%; text-align: center;
+  }
+  .logo { font-size: 1.4rem; font-weight: 700; margin-bottom: 2rem; }
+  .logo .reserv { color: #f0ede8; }
+  .logo .ia { color: #c9a96e; }
+  .check { font-size: 4rem; margin-bottom: 1rem; }
+  h1 { font-size: 1.5rem; font-weight: 700; color: #4caf82; margin-bottom: 0.5rem; }
+  .sub { color: #8a8890; font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem; }
+  .info-box {
+    background: rgba(76,175,130,0.08); border: 1px solid rgba(76,175,130,0.2);
+    border-radius: 10px; padding: 12px 16px; margin-bottom: 1.5rem;
+    font-size: 0.85rem; color: #8a8890;
+  }
+  .info-box strong { color: #f0ede8; display: block; margin-bottom: 4px; }
+  .next-steps { text-align: left; margin-bottom: 1.5rem; }
+  .step {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 0.85rem;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-icon { color: #4caf82; flex-shrink: 0; margin-top: 1px; }
+  .step-text { color: #8a8890; line-height: 1.5; }
+  .step-text strong { color: #f0ede8; }
+  .nota { font-size: 0.78rem; color: #8a8890; line-height: 1.7; }
+  .nota a { color: #c9a96e; text-decoration: none; }
+  .by-zevora {
+    margin-top: 1.5rem; padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-size: 0.7rem; color: #8a8890; letter-spacing: 0.06em;
+  }
+  .by-zevora span { color: #f0ede8; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo"><span class="reserv">Reserv</span><span class="ia">IA</span></div>
+
+  <div class="check">✅</div>
+  <h1>¡Google Calendar conectado!</h1>
+  <p class="sub">Las reservas ya aparecerán automáticamente en tu calendario de Google.</p>
+
+  <div class="info-box" id="info-box">
+    <strong id="nombre-restaurante">Tu restaurante</strong>
+    <span id="calendario-info">está listo para recibir reservas</span>
+  </div>
+
+  <div class="next-steps">
+    <div class="step">
+      <div class="step-icon">✓</div>
+      <div class="step-text"><strong>Cuenta activa</strong> — Tu restaurante está registrado en ReservaIA.</div>
+    </div>
+    <div class="step">
+      <div class="step-icon">✓</div>
+      <div class="step-text"><strong>Google Calendar conectado</strong> — Las reservas se sincronizarán automáticamente.</div>
+    </div>
+    <div class="step">
+      <div class="step-icon">⏳</div>
+      <div class="step-text"><strong>Canal WhatsApp</strong> — Nuestro equipo te contactará para activarlo.</div>
+    </div>
+  </div>
+
+  <p class="nota">
+    ¿Dudas? Escríbenos a <a href="mailto:hola@reservaia.es">hola@reservaia.es</a>
+  </p>
+
+  <div class="by-zevora">Desarrollado por <span>ZEVORA</span> · AI Automation Systems</div>
+</div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const restaurantId = params.get('restaurant_id');
+  const calendario = params.get('calendario');
+
+  if (restaurantId) {
+    // Cargar nombre desde Supabase
+    fetch(`https://msspbahutwrgajjsrwtj.supabase.co/rest/v1/restaurantes?id=eq.${encodeURIComponent(restaurantId)}&select=nombre`, {
+      headers: {
+        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1zc3BiYWh1dHdyZ2FqanNyd3RqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0ODAzODYsImV4cCI6MjA4OTA1NjM4Nn0.ILW9n5wF3zIL_e4WfYqIuZ0nF8XjVQhu-h6Xt9lE0X8',
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1zc3BiYWh1dHdyZ2FqanNyd3RqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0ODAzODYsImV4cCI6MjA4OTA1NjM4Nn0.ILW9n5wF3zIL_e4WfYqIuZ0nF8XjVQhu-h6Xt9lE0X8'
+      }
+    })
+    .then(r => r.json())
+    .then(data => {
+      if (data?.[0]?.nombre) {
+        document.getElementById('nombre-restaurante').textContent = data[0].nombre;
+      }
+    })
+    .catch(() => {});
+  }
+
+  if (calendario) {
+    document.getElementById('calendario-info').textContent = `Calendario: ${decodeURIComponent(calendario)}`;
+  }
+</script>
+</body>
+</html>
